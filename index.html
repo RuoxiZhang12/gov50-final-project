@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["compare.dta","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","Japan_Survey.dta","Replication_Appendix.do","Replication_Manuscript.do","US_Survey.dta"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","PAC_Coded-Apologies_Public-Version-2 (1).csv","PAC_Coded-Apologies_Public-Version-2.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1523,7 +1523,84 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 2) college grad percentage and support for increase tax on 1% richest people policy, other factors could include unemp, social mobility, dem/rep geographical areas (link with Raj Chetty’s research on social mobility and higher education?)</p>
 <h2 id="project-proposal---milestone-2">Project Proposal - Milestone 2</h2>
 <p>How does political apology influence public opinion? In this study, I plan to examine the extent to which political apology, taking US and Japan as examples, produce better international and domestic support. I hypothesize that political apologies to the international audience will increase international support but decrease domestic support, creating possible backlashes among nationalist groups. On the other hand, political apologies to the domestic audience will likely increase domestic support, showing the citizens of the responsibility of the government. My sample is comprised of political apologies in the US and Japan from 1947 to 2020. My unit of analysis is percent change in approval. The independent variable of interest is before and after political apologies and international or domestic audience. The variable is coded =1 for international audience and =0 for domestic audience. My outcome variable is the percentage change in approval of domestic and international audience. This variable is measured from Risa Kitagawa and Jonathan A. Chu’s data set on political apology’s impact on public approval of government. If I observe a positive percentage change in international approval but a negative percentage change in domestic approval after international political apology, this would provide support for my hypothesis. If, on the other hand, I observe a negative percentage change in international approval and a positive change in domestic approval after international political apology, this would provide evidence against my hypothesis. If I observe a positive change in domestic approval after a domestic political apology, this would provide support for my hypothesis. If I observe a negative percentage change in domestic approval after a domestic political apology, this would rpovide evidence against my hypothesis. When I run my regression of the percentage change in approval after political apology, a positive, significant coefficient would indicate support for my hypothesis.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>apologies</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"PAC_Coded-Apologies_Public-Version-2 (1).csv"</span><span class='op'>)</span></span>
+<span><span class='va'>apologies</span></span></code></pre>
+</div>
+<pre><code># A tibble: 404 × 16,015
+      No Year_1 Year_Cat      Countr…¹ Count…² Role_…³ Polit…⁴ Polit…⁵
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+ 1     1   1947 0 = &lt; 1975    United … USA     2 =Pre… Democr… &lt;NA&gt;   
+ 2     2   1951 0 = &lt; 1975    Federal… DEU     2 =Pre… CDU (C… 9 =Cen…
+ 3     4   1956 0 = &lt; 1975    USSR     SUHH    8 =Oth… CPSU (… 1 =Far…
+ 4     5   1957 0 = &lt; 1975    Japan    JPN     3 =Pri… Libera… 10 =Ce…
+ 5     6   1957 0 = &lt; 1975    Japan    JPN     3 =Pri… Libera… 10 =Ce…
+ 6     7   1965 0 = &lt; 1975    Japan    JPN     4 =Min… Libera… 10 =Ce…
+ 7    10   1970 0 = &lt; 1975    Germany  DEU     3 =Pri… SPD (S… 5 =Cen…
+ 8    12   1972 0 = &lt; 1975    Japan    JPN     3 =Pri… Libera… 10 =Ce…
+ 9   403   1974 0 = &lt; 1975    Pakistan PAK     5 =(Me… &lt;NA&gt;    &lt;NA&gt;   
+10    13   1975 1 = 1975-1979 Japan    JPN     1 =Kin… &lt;NA&gt;    &lt;NA&gt;   
+# … with 394 more rows, 16,007 more variables: Count_Rec &lt;chr&gt;,
+#   Count_R_ISO_Alpha &lt;chr&gt;, Group_Rec_ID_1 &lt;chr&gt;, Group_Rec_1 &lt;chr&gt;,
+#   Context_Cat_1 &lt;chr&gt;, HRV_1 &lt;chr&gt;, HRV_Date_Start &lt;dbl&gt;,
+#   HRV_Date_End &lt;dbl&gt;, Apol_Med &lt;chr&gt;, Apol_Text &lt;chr&gt;,
+#   Apol_Light &lt;chr&gt;, ...20 &lt;lgl&gt;, ...21 &lt;lgl&gt;, ...22 &lt;lgl&gt;,
+#   ...23 &lt;lgl&gt;, ...24 &lt;lgl&gt;, ...25 &lt;lgl&gt;, ...26 &lt;lgl&gt;, ...27 &lt;lgl&gt;,
+#   ...28 &lt;lgl&gt;, ...29 &lt;lgl&gt;, ...30 &lt;lgl&gt;, ...31 &lt;lgl&gt;, …</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>apologies_1</span> <span class='op'>&lt;-</span> <span class='va'>apologies</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Country_S</span> <span class='op'>==</span> <span class='st'>"United States of America"</span> <span class='op'>|</span> <span class='va'>Country_S</span> <span class='op'>==</span> <span class='st'>"Japan"</span><span class='op'>)</span> </span>
+<span><span class='va'>apologies_1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 87 × 16,015
+      No Year_1 Year_Cat      Countr…¹ Count…² Role_…³ Polit…⁴ Polit…⁵
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+ 1     1   1947 0 = &lt; 1975    United … USA     2 =Pre… Democr… &lt;NA&gt;   
+ 2     5   1957 0 = &lt; 1975    Japan    JPN     3 =Pri… Libera… 10 =Ce…
+ 3     6   1957 0 = &lt; 1975    Japan    JPN     3 =Pri… Libera… 10 =Ce…
+ 4     7   1965 0 = &lt; 1975    Japan    JPN     4 =Min… Libera… 10 =Ce…
+ 5    12   1972 0 = &lt; 1975    Japan    JPN     3 =Pri… Libera… 10 =Ce…
+ 6    13   1975 1 = 1975-1979 Japan    JPN     1 =Kin… &lt;NA&gt;    &lt;NA&gt;   
+ 7    14   1976 1 = 1975-1979 United … USA     2 =Pre… Republ… 10 =Ce…
+ 8    16   1982 2 = 1980-1984 Japan    JPN     8 =Oth… Libera… 10 =Ce…
+ 9    18   1984 2 = 1980-1984 Japan    JPN     1 =Kin… &lt;NA&gt;    &lt;NA&gt;   
+10    19   1984 2 = 1980-1984 Japan    JPN     3 =Pri… Libera… 10 =Ce…
+# … with 77 more rows, 16,007 more variables: Count_Rec &lt;chr&gt;,
+#   Count_R_ISO_Alpha &lt;chr&gt;, Group_Rec_ID_1 &lt;chr&gt;, Group_Rec_1 &lt;chr&gt;,
+#   Context_Cat_1 &lt;chr&gt;, HRV_1 &lt;chr&gt;, HRV_Date_Start &lt;dbl&gt;,
+#   HRV_Date_End &lt;dbl&gt;, Apol_Med &lt;chr&gt;, Apol_Text &lt;chr&gt;,
+#   Apol_Light &lt;chr&gt;, ...20 &lt;lgl&gt;, ...21 &lt;lgl&gt;, ...22 &lt;lgl&gt;,
+#   ...23 &lt;lgl&gt;, ...24 &lt;lgl&gt;, ...25 &lt;lgl&gt;, ...26 &lt;lgl&gt;, ...27 &lt;lgl&gt;,
+#   ...28 &lt;lgl&gt;, ...29 &lt;lgl&gt;, ...30 &lt;lgl&gt;, ...31 &lt;lgl&gt;, …</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>apologies_1</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Year_Cat</span>, <span class='va'>Country_S</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year_Cat</span>,</span>
+<span>                       y <span class='op'>=</span> <span class='va'>n</span>,</span>
+<span>                       fill <span class='op'>=</span> <span class='va'>Country_S</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>,</span>
+<span>             position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span>,</span>
+<span>                                   vjust <span class='op'>=</span> <span class='fl'>0.5</span>,</span>
+<span>                                   hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Year Categories"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Number of Apologies"</span>,</span>
+<span>       fill <span class='op'>=</span> <span class='st'>"Country"</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
