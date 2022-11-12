@@ -21,3 +21,39 @@ I am interested in exploring data related to
 How does political apology influence public opinion? In this study, I plan to examine the extent to which political apology, taking US and Japan as examples, produce better international and domestic support. I hypothesize that political apologies to the international audience will increase international support but decrease domestic support, creating possible backlashes among nationalist groups. On the other hand, political apologies to the domestic audience will likely increase domestic support, showing the citizens of the responsibility of the government. My sample is comprised of political apologies in the US and Japan from 1947 to 2020. My unit of analysis is percent change in approval. The independent variable of interest is before and after political apologies and international or domestic audience. The variable is coded =1 for international audience and =0 for domestic audience. My outcome variable is the percentage change in approval of domestic and international audience. This variable is measured from Risa Kitagawa and Jonathan A. Chu’s data set on political apology's impact on public approval of government. If I observe a positive percentage change in international approval but a negative percentage change in domestic approval after international political apology, this would provide support for my hypothesis. If, on the other hand, I observe a negative percentage change in international approval and a positive change in domestic approval after international political apology, this would provide evidence against my hypothesis. If I observe a positive change in domestic approval after a domestic political apology, this would provide support for my hypothesis. If I observe a negative percentage change in domestic approval after a domestic political apology, this would rpovide evidence against my hypothesis. When I run my regression of the percentage change in approval after political apology, a positive, significant coefficient would indicate support for my hypothesis.
 
 
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+apologies <- read_csv("PAC_Coded-Apologies_Public-Version-2 (1).csv")
+apologies
+```
+
+
+```{r}
+apologies_1 <- apologies |>
+  filter(Country_S == "United States of America" | Country_S == "Japan") 
+apologies_1
+```
+
+
+```{r}
+apologies_1 |>
+  group_by(Year_Cat, Country_S) |>
+  mutate(n = n()) |>
+  ggplot(mapping = aes(x = Year_Cat,
+                       y = n,
+                       fill = Country_S)) +
+    geom_bar(stat = "identity",
+             position = position_dodge()) +
+  theme(axis.text.x = element_text(angle = 90,
+                                   vjust = 0.5,
+                                   hjust = 0.5)) +
+  labs(x = "Year Categories",
+       y = "Number of Apologies",
+       fill = "Country")
+```
+
+
