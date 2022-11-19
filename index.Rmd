@@ -25,6 +25,7 @@ How does political apology influence public opinion? In this study, I plan to ex
 library(tidyverse)
 ```
 
+## Milestone 3
 
 ```{r}
 apologies <- read_csv("PAC_Coded-Apologies_Public-Version-2 (1).csv")
@@ -56,4 +57,25 @@ apologies_1 |>
        fill = "Country")
 ```
 
+Large amount of increase in political apologies for both countries started at around the 1990s. 
 
+## Milestone 4
+
+```{r}
+apologies_1 |>
+  group_by( Apol_Med, Country_S) |>
+  mutate(n1 = n()) |>
+  ggplot(mapping = aes(x = Apol_Med,
+                       y = n1,
+                       fill = Country_S)) +
+    geom_histogram(stat = "identity",
+             position = position_dodge()) +
+  theme(axis.text.x = element_text(angle = 90,
+                                   vjust = 0.5,
+                                   hjust = 0.5)) +
+  labs(x = "Country",
+       y = "Number of Apologies",
+       fill = "Method of Apologies")
+```
+
+The data shows that while the US has done more written political apologies, Japan tends to do more verbal political apologies.
